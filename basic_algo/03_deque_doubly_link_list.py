@@ -54,7 +54,6 @@ def popAtBeginning(db_list: DoublyLinkedList):
         else:
             db_list.head.next.prev = None
             log(f"removed  {db_list.head.data} element from beginning list")
-
             db_list.head = db_list.head.next
 
         return db_list.head
@@ -85,8 +84,36 @@ def seeListReverse(db_tail) -> None:
             temp = temp.prev
         print(" <-> None")
 
-def menu(db_list: DoublyLinkedList, choice: int):
 
+def pushEnd(db_list: DoublyLinkedList):
+    dat = intInput("Enter you data: ", "Only int data allowed")
+    new_node = Node(dat)
+    if db_list.head is None:
+        db_list.head = new_node
+        db_list.tail = new_node
+    else:
+        db_list.tail.next = new_node
+        new_node.prev = db_list.tail
+        db_list.tail = new_node
+    log(f"{dat} has been added to the list")
+    return db_list.head
+
+
+def popAtEnd(db_list: DoublyLinkedList):
+    if db_list.head is None:
+        log("list is empty")
+    elif db_list.head.next is None:
+        log(f"Removed last element {db_list.head.data} from the list")
+        db_list.head = None
+        db_list.tail = None
+    else:
+        db_list.tail.prev.next = None
+        log(f"Removed {db_list.tail.data} from the end of the list")
+        db_list.tail = db_list.tail.prev
+    return db_list.head
+
+
+def menu(db_list: DoublyLinkedList, choice: int):
     if choice == 1:
         db_list.head = pushBeginning(db_list)
     elif choice == 2:
@@ -95,6 +122,10 @@ def menu(db_list: DoublyLinkedList, choice: int):
         seeList(db_list.head)
     elif choice == 4:
         seeListReverse(db_list.tail)
+    elif choice == 5:
+        db_list.head = pushEnd(db_list)
+    elif choice == 6:
+        db_list.head = popAtEnd(db_list)
     elif choice == 11:
         log("Thank You")
     else:
@@ -109,10 +140,15 @@ def main() -> None:
             "\n1. Push at beginning"
             "\n2. Pop from beginning"
             "\n3. Display all"
-            "\n4. Display all in reverse")
+            "\n4. Display all in reverse"
+            "\n5. Push at end"
+            "\n6. Pop at end"
+            "\n11. Quit"
+            )
         choice = intInput("your choice: ", "Please choose only digits from 1-10")
         menu(db_list, choice)
 
 
 if __name__ == "__main__":
     main()
+
