@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{usrName}}</title>
+</head>
+<body>
+<h3 style="color:blue">{% with messages = get_flashed_messages() %}{{ messages[0] }}{% endwith %}</h3>
+<h1>hello {{ usrName }}</h1>
+<h4><a href="{{ url_for('logouter') }}" >LOGOUT</h4>
+</body>
+</html>
